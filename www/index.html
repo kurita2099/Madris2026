@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>マドリス</title>
+
+<link rel='stylesheet' href='css/style.css' />
+<script type="text/javascript" charset="utf-8" src="cordova-2.2.0.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/LowLatencyAudio.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/TwitterPlugin.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/GameCenterPlugin.js"></script>
+<script type="text/javascript" charset="utf-8" src="plugins/ChildBrowser.js"></script>
+<script src="js/jquery.js"></script>
+<script type="text/javascript" src="js/title.js"></script>
+
+<script type="text/javascript" src="js/rule_rank_other.js"></script>
+<meta name="viewport" content="width=640, user-scalable=no, viewport-fit=cover">
+
+<style>
+  /* 2. 画面にフィットさせるための CSS */
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* 余白を黒にして違和感を消す */
+    overflow: hidden;
+  }
+
+  #content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 640px;
+    height: 1136px;
+    /* 画面幅に合わせて強制スケーリング */
+    transform: scale(calc(100vw / 640));
+    transform-origin: 0 0;
+  }
+</style>
+
+<script>
+  // 3. 一部の古い WebView で calc が効かない場合の保険
+  function adjustScale() {
+    var screenWidth = window.innerWidth;
+    var content = document.getElementById('content');
+    if (content && screenWidth > 0) {
+      var scale = screenWidth / 640;
+      content.style.transform = 'scale(' + scale + ')';
+    }
+  }
+  window.addEventListener('load', adjustScale);
+  window.addEventListener('resize', adjustScale);
+</script>
+
+</head>
+    <body onload=gamen();>
+    <div id="content" style="display: block; margin: 0 auto;">
+			<div id = "title">
+				<div id = "beginner_btn" class = "title_btn btn"></div>
+				<div id = "beginner_score" class = "title_score">
+					<img id = "beginner_best_score_suzi9" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "beginner_best_score_suzi8" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "beginner_best_score_suzi7" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "beginner_best_score_comma2" class = "title_best_score_comma" src="./images/comma.png"></img>
+					<img id = "beginner_best_score_suzi6" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "beginner_best_score_suzi5" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "beginner_best_score_suzi4" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "beginner_best_score_comma1" class = "title_best_score_comma" src="./images/comma.png"></img>
+					<img id = "beginner_best_score_suzi3" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "beginner_best_score_suzi2" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "beginner_best_score_suzi1" class = "title_best_score_suzi" src="./images/0.png"></img>
+				</div>
+				<div id = "easy_btn" class = "title_btn btn"></div>
+				<div id = "easy_score" class = "title_score">
+					<img id = "easy_best_score_suzi9" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "easy_best_score_suzi8" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "easy_best_score_suzi7" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "easy_best_score_comma2" class = "title_best_score_comma" src="./images/comma.png"></img>
+					<img id = "easy_best_score_suzi6" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "easy_best_score_suzi5" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "easy_best_score_suzi4" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "easy_best_score_comma1" class = "title_best_score_comma" src="./images/comma.png"></img>
+					<img id = "easy_best_score_suzi3" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "easy_best_score_suzi2" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "easy_best_score_suzi1" class = "title_best_score_suzi" src="./images/0.png"></img>
+				</div>
+				<div id = "normal_btn" class = "title_btn btn"></div>
+				<div id = "normal_score" class = "title_score">
+					<img id = "normal_best_score_suzi9" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "normal_best_score_suzi8" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "normal_best_score_suzi7" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "normal_best_score_comma2" class = "title_best_score_comma" src="./images/comma.png"></img>
+					<img id = "normal_best_score_suzi6" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "normal_best_score_suzi5" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "normal_best_score_suzi4" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "normal_best_score_comma1" class = "title_best_score_comma" src="./images/comma.png"></img>
+					<img id = "normal_best_score_suzi3" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "normal_best_score_suzi2" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "normal_best_score_suzi1" class = "title_best_score_suzi" src="./images/0.png"></img>
+				</div>
+				<div id = "hard_btn" class = "title_btn btn"></div>
+				<div id = "hard_score" class = "title_score">
+					<img id = "hard_best_score_suzi9" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "hard_best_score_suzi8" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "hard_best_score_suzi7" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "hard_best_score_comma2" class = "title_best_score_comma" src="./images/comma.png"></img>
+					<img id = "hard_best_score_suzi6" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "hard_best_score_suzi5" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "hard_best_score_suzi4" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "hard_best_score_comma1" class = "title_best_score_comma" src="./images/comma.png"></img>
+					<img id = "hard_best_score_suzi3" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "hard_best_score_suzi2" class = "title_best_score_suzi" src="./images/0.png"></img>
+					<img id = "hard_best_score_suzi1" class = "title_best_score_suzi" src="./images/0.png"></img>
+				</div>
+				<div id = "rule_btn" class = "title_btn2 btn"></div>
+				<div id = "ranking_btn" class = "title_btn2 btn"></div>
+				<div id = "others_btn" class = "title_btn2 btn"></div>
+			</div>
+			<div id = "game">
+				<canvas width='640' height='1024' id="canvas_bg"></canvas>
+				<canvas width='640' height='1024' id="canvas_freeze"></canvas>
+				<canvas width='640' height='1024' id="canvas_mino"></canvas>
+				<canvas width='256' height='256' id="canvas_MINO"></canvas>
+				<canvas width='640' height='1024' id="canvas_message"></canvas>
+				<div id = "gametop_area">
+					<div id = "next"></div>
+					<div id = "best_score">
+						<img id = "best_score_suzi9" class = "best_score_suzi" src="./images/0.png"></img>
+						<img id = "best_score_suzi8" class = "best_score_suzi" src="./images/0.png"></img>
+						<img id = "best_score_suzi7" class = "best_score_suzi" src="./images/0.png"></img>
+						<img id = "best_score_comma2" class = "best_score_comma" src="./images/comma.png"></img>
+						<img id = "best_score_suzi6" class = "best_score_suzi" src="./images/0.png"></img>
+						<img id = "best_score_suzi5" class = "best_score_suzi" src="./images/0.png"></img>
+						<img id = "best_score_suzi4" class = "best_score_suzi" src="./images/0.png"></img>
+						<img id = "best_score_comma1" class = "best_score_comma" src="./images/comma.png"></img>
+						<img id = "best_score_suzi3" class = "best_score_suzi" src="./images/0.png"></img>
+						<img id = "best_score_suzi2" class = "best_score_suzi" src="./images/0.png"></img>
+						<img id = "best_score_suzi1" class = "best_score_suzi" src="./images/0.png"></img>
+					</div>
+					<div id = "score">
+						<img id = "score_suzi9" class = "score_suzi" src="./images/0.png"></img>
+						<img id = "score_suzi8" class = "score_suzi" src="./images/0.png"></img>
+						<img id = "score_suzi7" class = "score_suzi" src="./images/0.png"></img>
+						<img id = "score_comma2" class = "score_comma" src="./images/comma.png"></img>
+						<img id = "score_suzi6" class = "score_suzi" src="./images/0.png"></img>
+						<img id = "score_suzi5" class = "score_suzi" src="./images/0.png"></img>
+						<img id = "score_suzi4" class = "score_suzi" src="./images/0.png"></img>
+						<img id = "score_comma1" class = "score_comma" src="./images/comma.png"></img>
+						<img id = "score_suzi3" class = "score_suzi" src="./images/0.png"></img>
+						<img id = "score_suzi2" class = "score_suzi" src="./images/0.png"></img>
+						<img id = "score_suzi1" class = "score_suzi" src="./images/0.png"></img>
+					</div>
+					<img id = "pause" src ="./images/p_stop.png" class="btn"></img>
+				</div>
+				<div id = "gameover_area">
+					<div id = "gameover" class=""></div>
+					<div id = "gotitle" class="bu btn"></div>
+					<div id = "retry" class="bu btn"></div>
+					<div id = "action" class="bu btn"></div>
+					<div id = "twitter" class="bu btn"></div>
+					<div id = "continue" class="bu btn"></div>
+				</div>
+			</div>
+			<img id = "rule" src ="./images/howto.png">
+<!-- 			ルール -->
+			<div id = "ranking">
+			ランキング
+			</div>
+			<div id = "others">
+<!-- 			他アプリ紹介 -->
+			</div>
+<!-- 			<div id = "koukoku"> -->
+<!-- 			<!--広告 --> -->
+<!--     		</div> -->
+    </div>
+         <script src='js/minoarr.js'></script>
+        <script src='js/madoris.js'></script>
+        <script src='js/controller.js'></script>
+        <script src='js/render.js'></script>
+    </body>
+</html>
