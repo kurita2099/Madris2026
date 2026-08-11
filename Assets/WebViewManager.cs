@@ -51,12 +51,13 @@ public class YourFileLoader : MonoBehaviour
             webViewObject.Init(
                 cb: (msg) =>
                 {
-                    Debug.Log($"CallFromJS[{msg}]");
                      if (soundManager != null)
                     {
+                    Debug.Log($"CallFromJS[{msg}]");
                         if (msg.StartsWith("PlayBGM:"))
                         {
                             string bgmName = msg.Substring("PlayBGM:".Length);
+                            Debug.Log($"CallFromJS2[{msg}]");
                             soundManager.PlayBGMFromJS(bgmName);
                         }
                         else if (msg.StartsWith("PlaySE:"))
