@@ -6,6 +6,8 @@ using UnityEngine.Networking; // UnityWebRequest を使用するために必要
 public class YourFileLoader : MonoBehaviour
 {
     WebViewObject webViewObject;
+    public YourSoundManager soundManager;
+    
     private const string ZipFileName = "www.zip";
     private const string ExtractedFolderName = "www_extracted"; // 解凍先のフォルダ名
     private const string IndexFileName = "www/index.html"; // 解凍後のHTMLファイル名
@@ -23,6 +25,16 @@ public class YourFileLoader : MonoBehaviour
  // このコルーチンを呼び出す例
      void Start()
      {
+        if (soundManager == null)
+        {
+            Debug.LogError("YourSoundManagerが割り当てられていません！インスペクターで設定してください。");
+            soundManager = FindObjectOfType<YourSoundManager>();
+            if (soundManager == null)
+            {
+                Debug.LogError("シーン内にYourSoundManagerが見つかりませんでした。");
+                return;
+            }
+        }
           InitializeWebView();
           StartCoroutine(LoadAndProcessZipFromStreamingAssets());
      }
@@ -40,6 +52,50 @@ public class YourFileLoader : MonoBehaviour
                 cb: (msg) =>
                 {
                     Debug.Log($"CallFromJS[{msg}]");
+                     if (soundManager != null)
+                    {
+                        if (msg.StartsWith("PlayBGM:"))
+                        {
+                            string bgmName = msg.Substring("PlayBGM:".Length);
+                            soundManager.PlayBGMFromJS(bgmName);
+                        }
+                        else if (msg.StartsWith("PlaySE:"))
+                        {
+                            string seName = msg.Substring("PlaySE:".Length);
+                            soundManager.PlaySEFromJS(seName);
+                        }
+                        else if (msg == "StopBGM")
+                        {
+                            soundManager.StopBGMFromJS();
+                        }
+                        else if (msg == "StopAllSE")
+                        {
+                            soundManager.StopAllSEFromJS();
+                        }
+                        else if (msg.StartsWith("SetBGMVolume:"))
+                        {
+                            string volumeStr = msg.Substring("SetBGMVolume:".Length);
+                            soundManager.SetBGMVolumeFromJS(volumeStr);
+                        }
+                        else if (msg.StartsWith("SetSEVolume:"))
+                        {
+                            string volumeStr = msg.Substring("SetSEVolume:".Length);
+                            soundManager.SetSEVolumeFromJS(volumeStr);
+                        }
+                        // 他のUnityメッセージがある場合はここに追加
+                        // 例: "YourSoundManager/PlaySoundFromJS/bgm.mp3" 形式をサポートする場合
+                        else 
+                        {
+                            string[] parts = msg.Split('/');
+                            if (parts.Length == 3 && parts[0] == "YourSoundManager" && parts[1] == "PlaySoundFromJS")
+                            {
+                                // 旧来のPlaySoundFromJSを使う場合は、BGMかSEかをここで判断するか、
+                                // 新しいPlayBGMFromJS/PlaySEFromJSを使用するようにJS側を変更することを推奨
+                                // 例: soundManager.PlaySEFromJS(parts[2]); // デフォルトでSEとして扱う
+                                Debug.LogWarning($"旧形式のPlaySoundFromJSメッセージを受信しましたが、新しいBGM/SE分離APIを使用してください: {msg}");
+                            }
+                        }
+                    }
                 },
                 err: (msg) =>
                 {
