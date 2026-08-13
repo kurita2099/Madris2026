@@ -7,6 +7,7 @@ public class YourFileLoader : MonoBehaviour
 {
     WebViewObject webViewObject;
     public YourSoundManager soundManager;
+    private NativeShareManager nativeShareManager;
     
     private const string ZipFileName = "www.zip";
     private const string ExtractedFolderName = "www_extracted"; // 解凍先のフォルダ名
@@ -35,6 +36,16 @@ public class YourFileLoader : MonoBehaviour
                 return;
             }
         }
+        if(nativeShareManager ==null)
+        {
+            Debug.LogError("NativeManagerが割り当てられていません！インスペクターで設定してください。");
+            nativeShareManager = FindObjectOfType<NativeShareManager>();
+            if (nativeShareManager == null)
+            {
+                Debug.LogError("シーン内にYourSoundManagerが見つかりませんでした。");
+                return;
+            }
+        }
           InitializeWebView();
           StartCoroutine(LoadAndProcessZipFromStreamingAssets());
      }
@@ -54,10 +65,14 @@ public class YourFileLoader : MonoBehaviour
                      if (soundManager != null)
                     {
                     Debug.Log($"CallFromJS[{msg}]");
-                        if (msg.StartsWith("PlayBGM:"))
+                        if (msg.StartsWith("Share:"))
+                        {
+                            string shareMess = msg.Substring("Share:".Length);
+                            nativeShareManager.OnShareButtonClicked(shareMess);
+                        }else if (msg.StartsWith("PlayBGM:"))
                         {
                             string bgmName = msg.Substring("PlayBGM:".Length);
-                            Debug.Log($"CallFromJS2[{msg}]");
+                            
                             soundManager.PlayBGMFromJS(bgmName);
                         }
                         else if (msg.StartsWith("PlaySE:"))

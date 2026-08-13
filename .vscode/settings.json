@@ -56,5 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Madris2026.sln"
+    "dotnet.defaultSolution": "Madris2026.sln",
+    "dotnet.debug.suppressInvalidDebugTypeWarning": true
 }
