@@ -27,6 +27,7 @@ using System.Runtime.InteropServices;
 #if UNITY_2018_4_OR_NEWER
 using UnityEngine.Networking;
 #endif
+
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
 using System.IO;
 using System.Text.RegularExpressions;
@@ -34,11 +35,14 @@ using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 #endif
+
 #if UNITY_ANDROID
 using UnityEngine.Android;
 #endif
 
 using Callback = System.Action<string>;
+
+
 
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
 public class UnitySendMessageDispatcher
@@ -97,7 +101,11 @@ public class WebViewObject : MonoBehaviour
     float androidNetworkReachabilityCheckT0 = -1.0f;
     NetworkReachability? androidNetworkReachability0 = null;
 #endif
-    
+#if UNITY_IOS && !UNITY_EDITOR
+    // ★ ここに DllImport を追加します
+    [System.Runtime.InteropServices.DllImport("__Internal")]
+    private static extern string _CWebViewPlugin_CaptureScreenshotAsBase64(IntPtr instance);
+#endif
     void OnApplicationPause(bool paused)
     {
         this.paused = paused;
@@ -1571,9 +1579,13 @@ public class WebViewObject : MonoBehaviour
         return webView.Call<string>("CaptureScreenshotAsBase64");
     }
     return null;
+#elif UNITY_IOS && !UNITY_EDITOR
+    if (mWebView != IntPtr.Zero) {
+        return _CWebViewPlugin_CaptureScreenshotAsBase64(mWebView);
+    }
+    return null;
 #else
-    // Unityエディタ上やAndroid以外のプラットフォームで呼ばれた場合のログ/ダミー処理
-    Debug.LogWarning("[WebView] CaptureScreenshot is only supported on Android native devices.");
+    Debug.LogWarning("[WebView] CaptureScreenshot is only supported on mobile devices.");
     return null;
 #endif
 }
