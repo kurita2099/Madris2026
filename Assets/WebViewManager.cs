@@ -73,7 +73,7 @@ public class YourFileLoader : MonoBehaviour
                             string shareMess = msg.Substring("Share:".Length);
                             string capdata = webViewObject.CaptureScreenshot();
   
-                            nativeShareManager.OnShareButtonClicked(shareMess);
+                            nativeShareManager.OnShareButtonClicked(shareMess,capdata);
                         }else if (msg.StartsWith("PlayBGM:"))
                         {
                             string bgmName = msg.Substring("PlayBGM:".Length);

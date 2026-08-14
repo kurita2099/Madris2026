@@ -5,9 +5,9 @@ using UnityEngine;
 public class NativeShareManager : MonoBehaviour
 {
     // ボタンのOnClickイベントなどに割り当てて呼び出します
-    public void OnShareButtonClicked(string message)
+    public void OnShareButtonClicked(string message,string capdata)
     {
-        StartCoroutine(TakeScreenshotAndShare(message));
+        StartCoroutine(TakeScreenshotAndShare(message,capdata));
     }
         // JavaScriptからメッセージを受け取ったときに呼ばれるハンドラ
     private void OnWebViewMessageReceived(string message)
@@ -73,11 +73,15 @@ public class NativeShareManager : MonoBehaviour
     }
 
 
-    private IEnumerator TakeScreenshotAndShare(string message)
+    private IEnumerator TakeScreenshotAndShare(string message,string base64Data)
     {
         // 描画完了まで待機
         yield return new WaitForEndOfFrame();
-
+        byte[] bytes = System.Convert.FromBase64String(base64Data);
+        string filePath = Path.Combine(Application.temporaryCachePath, "shared_img.png");
+        File.WriteAllBytes(filePath,bytes);
+/*
+/*
         // 画面のキャプチャを作成
         Texture2D ss = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
         ss.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
@@ -89,7 +93,7 @@ public class NativeShareManager : MonoBehaviour
 
         // メモリリーク防止のためTextureを破棄
         Destroy(ss);
-
+*/
         // NativeShareのインスタンスを作成して共有ダイアログを表示
         new NativeShare()
             .AddFile(filePath)                             // 共有するファイルのパス
