@@ -70,7 +70,9 @@ public class YourFileLoader : MonoBehaviour
                         webViewObject.EvaluateJS("receiveDataFromUnity('Hello from C#');");
                         }else if (msg.StartsWith("Share:"))
                         {
-                             string shareMess = msg.Substring("Share:".Length);
+                            string shareMess = msg.Substring("Share:".Length);
+                            string capdata = webViewObject.CaptureScreenshot();
+  
                             nativeShareManager.OnShareButtonClicked(shareMess);
                         }else if (msg.StartsWith("PlayBGM:"))
                         {
