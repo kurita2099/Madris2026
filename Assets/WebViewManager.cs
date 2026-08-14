@@ -65,9 +65,12 @@ public class YourFileLoader : MonoBehaviour
                      if (soundManager != null)
                     {
                     Debug.Log($"CallFromJS[{msg}]");
-                        if (msg.StartsWith("Share:"))
+                      if (msg == "getDataFromWeb") {
+                        // "Return" data back by evaluating JS in the webview          
+                        webViewObject.EvaluateJS("receiveDataFromUnity('Hello from C#');");
+                        }else if (msg.StartsWith("Share:"))
                         {
-                            string shareMess = msg.Substring("Share:".Length);
+                             string shareMess = msg.Substring("Share:".Length);
                             nativeShareManager.OnShareButtonClicked(shareMess);
                         }else if (msg.StartsWith("PlayBGM:"))
                         {
@@ -135,15 +138,18 @@ public class YourFileLoader : MonoBehaviour
     }
     public IEnumerator LoadAndProcessZipFromStreamingAssets()
     {
-       
+        const string ExtractedVersionPlayerPrefsKey = "ExtractedAppVersion";
+   
         string persistentDataPath = Application.persistentDataPath;
         string extractedFolderPath = Path.Combine(persistentDataPath, ExtractedFolderName);
         string extractedIndexFilePath = Path.Combine(extractedFolderPath, IndexFileName);
+        string currentAppVersion = Application.version;
+        string lastExtractedVersion = PlayerPrefs.GetString(ExtractedVersionPlayerPrefsKey, string.Empty);
 
         Debug.Log($"ZIPファイルのコピーを開始します... パス: {Path.Combine(Application.streamingAssetsPath, ZipFileName)}");
 
         // 1. 解凍済みかどうかのチェック
-        if (File.Exists(extractedIndexFilePath))
+        if (File.Exists(extractedIndexFilePath) && lastExtractedVersion == currentAppVersion)
         {
             Debug.Log($"既に {IndexFileName} が解凍済みです: {extractedIndexFilePath}");
             // 解凍済みなら直接WebViewを読み込む
@@ -182,6 +188,11 @@ public class YourFileLoader : MonoBehaviour
 
                 // 4. 保存したZIPファイルを解凍
                 yield return ExtractZipFile(targetZipPath, extractedFolderPath);
+                 // 解凍が成功したら、現在のアプリケーションバージョンを保存
+                PlayerPrefs.SetString(ExtractedVersionPlayerPrefsKey, currentAppVersion);
+                PlayerPrefs.Save(); // 確実にディスクに書き込む
+                Debug.Log($"現在のアプリケーションバージョン '{currentAppVersion}' を保存しました。");
+
 
                 // 5. 解凍後のindex.htmlをWebViewで読み込む
                 if (File.Exists(extractedIndexFilePath))

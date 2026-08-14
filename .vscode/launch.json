@@ -10,7 +10,7 @@
             "name": "Attach to Unity Android Player",
             "type": "vstuc",
             "request": "attach",
-            "endPoint": "127.0.0.1:56000"
+            "endPoint": "127.0.0.1:55555"
         }
      ]
 }
