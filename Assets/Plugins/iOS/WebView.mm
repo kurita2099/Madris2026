@@ -137,6 +137,7 @@ extern "C" void UnitySendMessage(const char *, const char *, const char *);
     NSString *basicAuthUserName;
     NSString *basicAuthPassword;
 }
+- (NSString *)captureScreenshotAsBase64;
 @end
 
 @implementation CWebViewPlugin
@@ -546,7 +547,34 @@ window.Unity = { \
 
     }
 }
-
+- (NSString *)captureScreenshotAsBase64 {
+    if (webView == nil || ![webView isKindOfClass:[WKWebView class]]) {
+        return @"";
+    }
+    
+    WKWebView *wkWebView = (WKWebView *)webView;
+    
+    // 同期的にBase64文字列を取得するため、Semaphoreを使用
+    __block NSString *base64String = @"";
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    
+    WKSnapshotConfiguration *config = [[WKSnapshotConfiguration alloc] init];
+    
+    [wkWebView takeSnapshotWithConfiguration:config completionHandler:^(UIImage * _Nullable snapshotImage, NSError * _Nullable error) {
+        if (snapshotImage != nil && error == nil) {
+            NSData *imageData = UIImagePNGRepresentation(snapshotImage);
+            if (imageData != nil) {
+                base64String = [imageData base64EncodedStringWithOptions:0];
+            }
+        }
+        dispatch_semaphore_signal(semaphore);
+    }];
+    
+    // キャプチャ完了まで待機（タイムアウト: 2秒）
+    dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)));
+    
+    return base64String;
+}
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView
 {
     UnitySendMessage([gameObjectName UTF8String], "CallOnError", "webViewWebContentProcessDidTerminate");
@@ -1306,4 +1334,14 @@ void _CWebViewPlugin_SetSuspended(void *instance, BOOL suspended)
     CWebViewPlugin *webViewPlugin = (__bridge CWebViewPlugin *)instance;
     [webViewPlugin setAllMediaPlaybackSuspended:suspended];
 }
+const char *_CWebViewPlugin_CaptureScreenshotAsBase64(void *instance) {
+        CWebViewPlugin *plugin = (__bridge CWebViewPlugin *)instance;
+        if (plugin != nil) {
+            NSString *base64 = [plugin captureScreenshotAsBase64];
+            if (base64 != nil) {
+                return strdup([base64 UTF8String]);
+            }
+        }
+        return strdup("");
+    }
 #endif // !(__IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_9_0)
