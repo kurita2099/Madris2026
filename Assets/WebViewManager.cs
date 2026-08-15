@@ -78,6 +78,11 @@ public class YourFileLoader : MonoBehaviour
                         naichilab.RankingLoader.Instance.SendScoreAndShowRanking (scoredata[0],scoredata[1]);
                             
                         }
+                         else if (msg.StartsWith("Openurl:"))
+                        {
+                         string url = msg.Substring("Openurl:".Length);
+                         Application.OpenURL(url);
+                        }
                         else if (msg.StartsWith("Share:"))
                         {
                             string shareMess = msg.Substring("Share:".Length);
