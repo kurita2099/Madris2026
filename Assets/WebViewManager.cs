@@ -68,7 +68,17 @@ public class YourFileLoader : MonoBehaviour
                       if (msg == "getDataFromWeb") {
                         // "Return" data back by evaluating JS in the webview          
                         webViewObject.EvaluateJS("receiveDataFromUnity('Hello from C#');");
-                        }else if (msg.StartsWith("Share:"))
+                         }
+                        else if (msg.StartsWith("Raking:"))
+                        {
+                            
+                            //Ranking:レベル(0-4):スコア 
+                        string ranking = msg.Substring("Ranking:".Length);
+                        string []scoredata = ranking.Split(":");
+                        naichilab.RankingLoader.Instance.SendScoreAndShowRanking (scoredata[0],scoredata[1]);
+                            
+                        }
+                        else if (msg.StartsWith("Share:"))
                         {
                             string shareMess = msg.Substring("Share:".Length);
                             string capdata = webViewObject.CaptureScreenshot();
