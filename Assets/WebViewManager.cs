@@ -75,7 +75,16 @@ public class YourFileLoader : MonoBehaviour
                             //Ranking:レベル(0-4):スコア 
                         string ranking = msg.Substring("Ranking:".Length);
                         string []scoredata = ranking.Split(":");
-                        naichilab.RankingLoader.Instance.SendScoreAndShowRanking (scoredata[0],scoredata[1]);
+                        naichilab.RankingLoader.Instance.SendScoreAndShowRanking (0,scoredata[1]);
+                            
+                        }
+                         else if (msg.StartsWith("Sendscore:"))
+                        {
+                            
+                            //Ranking:レベル(0-4):スコア 
+                        string ranking = msg.Substring("Sendscore:".Length);
+                        string []scoredata = ranking.Split(":");
+                        //naichilab.RankingLoader.Instance.SendScoreAndShowRanking (scoredata[0],scoredata[1]);
                             
                         }
                          else if (msg.StartsWith("Openurl:"))
