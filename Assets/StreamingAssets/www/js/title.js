@@ -61,12 +61,16 @@ $(function(){
                            }catch(e){
                            alert(e.stack);
                            }
-                           }
+                           }else{
+							sendUnityMessage("Raking:0:100");
+						   }
 	});
 	$('#others_btn').bind(click, function() {
 //		$('#title').css('display', 'none');
-//		$('#others').css('display', 'block');
-		location.href = 'http://qooga.com/app/';
+//		$('rs').css('display', 'block');
+//		location.href = 'http://qooga.com/app/';
+		sendUnityMessage("Openurl:" + 'http://qooga.com/app/');
+
 	});
 
 	//各モードベストスコアの読込・表示

@@ -10,14 +10,34 @@ var REVIEW_URL = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContents
 var soundtable = ['sounds/bgm.mp3', 'sounds/income.mp3', 'sounds/set.mp3', 'sounds/tap.mp3', 'sounds/turn.mp3'];
 document.addEventListener("deviceready", onDeviceReady, false);//サウンド読み込み用
 if(!plugin){
+	setTimeout(()=>{
+		if (window.Unity) {
+			// 元の console.log を退避
+			const originalLog = console.log;
+			// console.log をカスタム関数で上書き
+			console.log = function (...args) {
+				// 通常のブラウザコンソールにも出力（念のため）
+				originalLog.apply(console, args);
+
+				// 文字列に変換して Unity へ送信
+				const message = args.map(arg =>
+					typeof arg === 'object' ? JSON.stringify(arg) : arg
+				).join(' ');
+
+				Unity.call(message);
+			}
+	}
 	// 1. イベントオブジェクトを作成
-const event = new Event('deviceready');
-// 2. イベントを発火させる
-document.dispatchEvent(event);
+		const event = new Event('deviceready');
+	// 2. イベントを発火させる
+		document.dispatchEvent(event);
+	},1000)
+}
+function receiveDataFromUnity(response) {
+    console.log("Response from Unity: ", response);
 }
 function onDeviceReady(){
     if(plugin){
-
         for(var i=0;i<soundtable.length;i++){
             if(i==0){
             PGLowLatencyAudio.preloadAudio(soundtable[i], soundtable[i], i%4 + 1);
@@ -410,7 +430,9 @@ function tick() {
             }catch(e){
                 alert(e.stack);
             }
-        }
+        }else if(score>0){
+			sendUnityMessage("Sendscore:" + gamemode + ":" + score);
+		}
     	if(score > best_score){
         	switch(gamemode){
         	case 0:
@@ -1622,7 +1644,13 @@ $('#continue').bind('touchstart', function(e) {
 
 //タイトルにもどる
 $('#gotitle').bind('touchstart', function() {
-	location.href = "index.html";
+	//location.href = "index.html";
+	$('#gameover_area').css('display', 'none');
+	$('#gameover').css('display', 'none');
+	$('#twitter').css('display', 'none');
+	$('#title').css('display', 'block');
+	$('#game').css('display', 'none');
+
 });
 //もう一度挑戦する
 $('#retry').bind('touchstart', function(e) {
@@ -1674,12 +1702,21 @@ $('#twitter').bind("touchstart", function() {
     hako1 + hako2 + score + hako3+ hako4);
 
     }else{
+		/*
 	hako1 = encodeURIComponent( hako1 );
     hako2 = encodeURIComponent( hako2 );
     hako3 = encodeURIComponent( hako3 );
     hako4 = encodeURIComponent( "\n"+ hako4 );
 
     window.open("http://twitter.com/home?status=" + hako1 + hako2 + (score|0) + hako3 + hako4 );
+	*/
+	if (canvas) {
+                    var dataURL = canvas.toDataURL('image/png');
+                    UniWebView.sendMessage('canvasCaptured', { imageData: dataURL });
+                } else {
+                    console.error('Canvas element not found!');
+                }
+	sendUnityMessage("Share:"+hako1 + hako2 + score + hako3+ hako4)
     }
 
 });
