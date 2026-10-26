@@ -1,0 +1,466 @@
+
+canvas {
+	position: absolute;
+	top: -174px;
+	left: 0px;
+    display: block;
+/*     border: 1px solid black; */
+}
+#canvas_MINO{
+	position: absolute;
+	top: -174px;
+	left: 256px;
+    display: block;
+}
+*{
+	margin: 0;
+}
+body{
+	background-color: black;
+}
+#content{
+	width: 640px;
+	height: 1136px;
+	position: absolute;
+	display: none;
+	overflow: hidden;
+}
+
+#title{
+	position: absolute;
+	width: 640px;
+	height: 1136px;
+	background-image: url(../images/title_bg.png);
+	display: block;
+	background-repeat:no-repeat;
+}
+.title_btn{
+	position: absolute;
+	width: 500px;
+	height: 110px;
+	left: 70px;
+}
+.title_score{
+	position: absolute;
+	width: 187px;
+	height: 19px;
+	left: 218px;
+}
+#easy_btn{
+	top: 207px;
+/* 	background-color: orange; */
+}
+#easy_score{
+	top: 334px;
+/* 	background-color: orange; */
+}
+.title_best_score_suzi{
+	position: absolute;
+	width: 19px;
+	height: 19px;
+}
+.title_best_score_comma{
+	position: absolute;
+	width: 8px;
+	height: 19px;
+}
+#easy_best_score_suzi1{
+	left: 168px;
+}
+#easy_best_score_suzi2{
+	left: 149px;
+	display: none;
+}
+#easy_best_score_suzi3{
+	left: 130px;
+	display: none;
+}
+#easy_best_score_comma1{
+	left: 122px;
+	display: none;
+}
+#easy_best_score_suzi4{
+	left: 103px;
+	display: none;
+}
+#easy_best_score_suzi5{
+	left: 84px;
+	display: none;
+}
+#easy_best_score_suzi6{
+	left: 65px;
+	display: none;
+}
+#easy_best_score_comma2{
+	left: 57px;
+	display: none;
+}
+#easy_best_score_suzi7{
+	left: 38px;
+	display: none;
+}
+#easy_best_score_suzi8{
+	left: 19px;
+	display: none;
+}
+#easy_best_score_suzi9{
+	left: 0px;
+	display: none;
+}
+#normal_btn{
+	top: 398px;
+/* 	background-color: green; */
+}
+#normal_score{
+	top: 526px;
+/* 	background-color: green; */
+}
+#normal_best_score_suzi1{
+	left: 168px;
+}
+#normal_best_score_suzi2{
+	left: 149px;
+	display: none;
+}
+#normal_best_score_suzi3{
+	left: 130px;
+	display: none;
+}
+#normal_best_score_comma1{
+	left: 122px;
+	display: none;
+}
+#normal_best_score_suzi4{
+	left: 103px;
+	display: none;
+}
+#normal_best_score_suzi5{
+	left: 84px;
+	display: none;
+}
+#normal_best_score_suzi6{
+	left: 65px;
+	display: none;
+}
+#normal_best_score_comma2{
+	left: 57px;
+	display: none;
+}
+#normal_best_score_suzi7{
+	left: 38px;
+	display: none;
+}
+#normal_best_score_suzi8{
+	left: 19px;
+	display: none;
+}
+#normal_best_score_suzi9{
+	left: 0px;
+	display: none;
+}
+#hard_btn{
+	top: 590px;
+/* 	background-color: pink; */
+}
+#hard_score{
+	top: 718px;
+/* 	background-color: pink; */
+}
+#hard_best_score_suzi1{
+	left: 168px;
+}
+#hard_best_score_suzi2{
+	left: 149px;
+	display: none;
+}
+#hard_best_score_suzi3{
+	left: 130px;
+	display: none;
+}
+#hard_best_score_comma1{
+	left: 122px;
+	display: none;
+}
+#hard_best_score_suzi4{
+	left: 103px;
+	display: none;
+}
+#hard_best_score_suzi5{
+	left: 84px;
+	display: none;
+}
+#hard_best_score_suzi6{
+	left: 65px;
+	display: none;
+}
+#hard_best_score_comma2{
+	left: 57px;
+	display: none;
+}
+#hard_best_score_suzi7{
+	left: 38px;
+	display: none;
+}
+#hard_best_score_suzi8{
+	left: 19px;
+	display: none;
+}
+#hard_best_score_suzi9{
+	left: 0px;
+	display: none;
+}
+.title_btn2{
+	position: absolute;
+	width: 200px;
+	height: 50px;
+	top: 780px;
+	opacity: 0.5;
+}
+#rule_btn{
+	left: 20px;
+/* 	background-color: blue; */
+}
+#ranking_btn{
+	left: 220px;
+/* 	background-color: yellow; */
+}
+#others_btn{
+	left: 420px;
+/* 	background-color: red; */
+}
+
+#game{
+	position: absolute;
+	width: 640px;
+	height: 1136px;
+	background-image : url(../images/game_bg1.png);
+	display: none;
+}
+#gametop_area{
+	position: absolute;
+	width: 640px;
+	height: 82px;
+	background-image : url(../images/gametop_bg.png);
+}
+#next{
+	position: absolute;
+	width: 64px;
+	height: 64px;
+	left: 80px;
+	top: 10px;
+/* 	background-color: red; */
+}
+#best_score{
+	position: absolute;
+	width: 187px;
+	height: 19px;
+	left: 356px;
+	top: 10px;
+/* 	background-color: red; */
+}
+.best_score_suzi{
+	position: absolute;
+	width: 19px;
+	height: 19px;
+}
+.best_score_comma{
+	position: absolute;
+	width: 8px;
+	height: 19px;
+}
+#best_score_suzi1{
+	left: 168px;
+}
+#best_score_suzi2{
+	left: 149px;
+	display: none;
+}
+#best_score_suzi3{
+	left: 130px;
+	display: none;
+}
+#best_score_comma1{
+	left: 122px;
+	display: none;
+}
+#best_score_suzi4{
+	left: 103px;
+	display: none;
+}
+#best_score_suzi5{
+	left: 84px;
+	display: none;
+}
+#best_score_suzi6{
+	left: 65px;
+	display: none;
+}
+#best_score_comma2{
+	left: 57px;
+	display: none;
+}
+#best_score_suzi7{
+	left: 38px;
+	display: none;
+}
+#best_score_suzi8{
+	left: 19px;
+	display: none;
+}
+#best_score_suzi9{
+	left: 0px;
+	display: none;
+}
+#score{
+	position: absolute;
+	width: 374px;
+	height: 38px;
+	left: 154px;
+	top: 36px;
+/* 	background-color: blue; */
+}
+.score_suzi{
+	position: absolute;
+}
+.score_comma{
+	position: absolute;
+}
+#score_suzi1{
+	left: 336px;
+}
+#score_suzi2{
+	left: 298px;
+	display: none;
+}
+#score_suzi3{
+	left: 260px;
+	display: none;
+}
+#score_comma1{
+	left: 244px;
+	display: none;
+}
+#score_suzi4{
+	left: 206px;
+	display: none;
+}
+#score_suzi5{
+	left: 168px;
+	display: none;
+}
+#score_suzi6{
+	left: 130px;
+	display: none;
+}
+#score_comma2{
+	left: 114px;
+	display: none;
+}
+#score_suzi7{
+	left: 76px;
+	display: none;
+}
+#score_suzi8{
+	left: 38px;
+	display: none;
+}
+#score_suzi9{
+	left: 0px;
+	display: none;
+}
+
+#pause{
+	position: absolute;
+	width: 64px;
+	height: 64px;
+	left: 570px;
+	top: 9px;
+}
+
+#gameover_area{
+	position: absolute;
+	width: 590px;
+	height: 303px;
+	left: 25px;
+	top: 287px;
+	display: none;
+}
+#gameover{
+	position: absolute;
+	width: 590px;
+	height: 85px;
+	background-image : url(../images/gameover.png);
+	display: none;
+}
+.bu{
+	position: absolute;
+	width: 368px;
+	height: 68px;
+	left: 111px;
+}
+#gotitle{
+	top: 120px;
+	background-image : url(../images/bu_1.png);
+}
+#retry{
+	top: 223px;
+	background-image : url(../images/bu_2.png);
+}
+#twitter{
+	top: 326px;
+	background-image : url(../images/bu_4.png);
+	display: none;
+/* 	background-image : url(../images/twitter.png); */
+}
+#continue{
+	top: 326px;
+	background-image : url(../images/bu_5.png);
+	display: none;
+/* 	background-image : url(../images/twitter.png); */
+}
+/* #action{ */
+/* 	top: 326px; */
+/* 	background-image : url(../images/bu_3.png); */
+/* } */
+#rule{
+	position: absolute;
+	width: 640px;
+	height: 1136px;
+/* 	background-image : url(../images/howto.png); */
+	display: none;
+}
+
+
+
+#ranking{
+	position: absolute;
+	width: 640px;
+	height: 1136px;
+/* 	background-image : url(images/); */
+	display: none;
+	background-color: yellow;
+}
+
+
+
+#others{
+	position: absolute;
+	width: 640px;
+	height: 1136px;
+/* 	background-image : url(images/); */
+	display: none;
+	background-color: red;
+}
+
+
+
+#koukoku{
+	position: absolute;
+	width: 640px;
+	height: 276px;
+	top: 860px;
+	display: block;
+	background-color: red;
+	font-size: 300%;
+	color: white;
+}

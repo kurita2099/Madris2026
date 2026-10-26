@@ -1,0 +1,48 @@
+canvas {
+    display: block;
+    margin: auto;
+    border: 1px solid black;
+}
+
+*{
+	margin: 0;
+}
+
+#title{
+	position: absolute;
+	width: 640px;
+	height: 960px;
+	background-image: url(../images/title_bg.png);
+	display: block;
+}
+#game{
+	position: absolute;
+	width: 640px;
+	height: 960px;
+	background-image : url(../images/game_bg1.png);
+	display: none;
+}
+#rule{
+	position: absolute;
+	width: 640px;
+	height: 960px;
+/* 	background-image : url(images/); */
+	display: none;
+	background-color: blue;
+}
+#ranking{
+	position: absolute;
+	width: 640px;
+	height: 960px;
+/* 	background-image : url(images/); */
+	display: none;
+	background-color: yellow;
+}
+#others{
+	position: absolute;
+	width: 640px;
+	height: 960px;
+/* 	background-image : url(images/); */
+	display: none;
+	background-color: red;
+}

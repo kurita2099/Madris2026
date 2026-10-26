@@ -258,7 +258,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 237fea8cd5c7b3448a97a16f145d484b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leaderboardId: beginner_high_score
+  leaderboard0Id: beginner_high_score
+  leaderboard1Id: easy_high_score
+  leaderboard2Id: normal_high_score
+  leaderboard3Id: hard_high_score
 --- !u!1 &1264837777
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1264837779}
   - component: {fileID: 1264837778}
+  - component: {fileID: 1264837780}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -304,6 +308,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1264837780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264837777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a58666323288e4773b34b1434663603e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1747297508
 GameObject:
   m_ObjectHideFlags: 0
