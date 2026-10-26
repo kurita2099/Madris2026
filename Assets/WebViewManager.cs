@@ -39,6 +39,9 @@ public class WebViewManager : MonoBehaviour
             webViewObject = (new GameObject("WebViewObject")).AddComponent<WebViewObject>();
 
             webViewObject.Init(
+                #if UNITY_EDITOR
+                separated: true,
+                #endif
                 cb: (msg) =>
                 {
                     if (soundManager != null)
